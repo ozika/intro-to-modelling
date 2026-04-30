@@ -11,3 +11,5 @@ _site/
 .Rhistory
 .RData
 .Ruserdata
+
+/.quarto/

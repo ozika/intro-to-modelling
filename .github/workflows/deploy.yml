@@ -41,7 +41,7 @@ jobs:
       - name: Install R packages
         run: |
           Rscript -e "
-            pkgs <- c('shiny','ggplot2','dplyr','patchwork','scales','knitr')
+            pkgs <- c('rmarkdown','shiny','ggplot2','dplyr','patchwork','scales','knitr')
             new  <- pkgs[!pkgs %in% installed.packages()[,'Package']]
             if (length(new)) install.packages(new, repos = 'https://cloud.r-project.org')
           "

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.629">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>brief</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="brief_files/libs/clipboard/clipboard.min.js"></script>
+<script src="brief_files/libs/quarto-html/quarto.js"></script>
+<script src="brief_files/libs/quarto-html/popper.min.js"></script>
+<script src="brief_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="brief_files/libs/quarto-html/anchor.min.js"></script>
+<link href="brief_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="brief_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="brief_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="brief_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="brief_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<p>This is a brief for a ~45 minute presentation on the topic of introduction to computationale modelling in psychology/mental health. It should be aimed at audiecen who is scientifically capable (e.g.&nbsp;familiar with coding and statistics) but that has not really done any computational work. The ask is to draft the slides, demos and code and delivere them using quarto as a website, featuring r-shiny apps to demonstrate specific aspects. Below ++ indicates start of a new slide and /++ is the end of a slide Colors for the same aspects should be unified, rewards are in crimson red, participant responses in navy blu, model predictions in turquoise Create img folder where images can be placed.</p>
+<section id="content" class="level1">
+<h1>Content</h1>
+<p>++ splash slide Author Ondrej Zika Date 5th May 2026 title: A brief introduction to computational modelling with hands on example in R where: Institute for Systems Neuroscience /++</p>
+<p>++ List objectives for te session 1) Introduce the idea of modelling, why is it helpful 2) Introduce the key components: model, free parameters, data 3) Specifying a model 4) Fitting a model 5) Comparing models 6) Quality controls - models are not magic 7) Further topics /++</p>
+<section id="section-1-introduction" class="level3">
+<h3 class="anchored" data-anchor-id="section-1-introduction">Section 1: Introduction</h3>
+<p>++ background What is computational modelling - describe how in psychology we often want to infer cognitive processess that are not directly observable and this is where models can help. /++</p>
+<p>++ model comparison staying at comceptual level, shwo how we can use models to i) formalize hypotheses nad ii) compare them, use the analogy of a key which key fits the observed data the best /++</p>
+<p>++ Give an example of a computational model familiar to the audience: rescorla wagner /++</p>
+</section>
+<section id="section-2-key-components" class="level3">
+<h3 class="anchored" data-anchor-id="section-2-key-components">Section 2: Key Components</h3>
+<p>++ overarching slide showing how data-model and free parameters relate /++</p>
+<p>++ Design data: what data does the task contain Participant data: what responses has the participant made? Data, what data am I fitting, at which level (single trial, participant, feature) show (plot) example of a learning paradigm where people have to predict reward (range 0 to 100) that they will get on the next trial. the true reward fluctuates randomly. show true reward as dots in red, and participant predictions in navy blue</p>
+<p>/++</p>
+<p>++ What is a model - mapping from data (input) to output (predictions) /++</p>
+<p>++ What are “free parameters” - here design a very simple shiny app for a rescorla wagner model on reward reversal (single cue, three reversals) paradigm which allows to vary the learning rate. embedd into quarto. /++</p>
+</section>
+<section id="section-3-specifying-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="section-3-specifying-a-model">Section 3: Specifying a model</h3>
+<p>++ show mathematical formulas for linear regression and rescorl wagner /++</p>
+<p>++ show R code for rescorla wagner with one free parameter: alpha /++</p>
+<p>++ show math and R code for rescorla wagner with estiamted starting value (previous versions have v0 fixed at 0.5) show r shiny app with the two free parasms /++</p>
+<p>++ show math and R code for rescorla wagner with estiamted starting value and separate learning rate parameters for better than expected and worse than expected (alpha_b, alpha_w) show r shiny app with the three free params /++</p>
+</section>
+<section id="section-4-fitting-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="section-4-fitting-a-model">Section 4: Fitting a model</h3>
+<p>++ show the data that we collected (syntehtic) use the same example as in section 2 make an r shiny app which shows the error for each trial between predicted and true reward as a bar plot at the bottom (for each trial). and on the right it shows overall error. use the RW model with single alpha, as the user moves the slider up and down the model predictions are updated and so are the errors. this introduces the idea of a cost function.<br>
+participant data should be simulated using the basic model + some gaussian noise /++</p>
+<p>++ Describe different cost functions - error, mean squared error, likelihood “a model is nothing without a cost function” /++</p>
+<p>++ maximum likelihood approach In likelihood, inrtoduce it as probability that the data were generated by this model with this parameter values. P(D|M). Introduce log likelihood idea and r code how it can simply be computed for a single trial<br>
+/++</p>
+<p>++ show how log likelihood can be added across trials to get the overall log likelioood and add the convention of looking at the negative log likelihood. update the shiny up by showing negative log likelihood on the side. /++</p>
+<p>++ for rw1 and rw1_initial_value, show how parameter values relate to likelihood values as a 1D / 2D plots stress how important it is to understand likelihood functions for a specific data set to demonstrate add a model which is rw1 but every time the prediction error is bigger than 20 it jumps to the extreme (100 if pe is positive and 0 if pe is negative) (i.e.&nbsp;there is an arbitrary threshold), plot the 1D alpha to likelihood plot /++</p>
+<p>++ show R code for the model (remove any mention of nCues, there is just one cue in our example)</p>
+<pre><code>rw1_basic &lt;- function(data, params, conf=c()) {
+  # rewards
+  outcomes = data$outcomes
+  trials = data$trials
+
+  vals = matrix(, nrow = data$trial, ncol = data$nCues)
+  vals[1,] = rep(0.5, 1, data$nCues)
+  
+
+  for (i in seq(data$trial)) {
+
+    if (i != data$nTrials) {
+      # pass all 
+      vals[i+1,] = vals[i,]
+      
+      # update cue shown  value
+      cue &lt;- data$cue[i]
+      vals[i+1,cue] = vals[i,cue] + params$alpha*(alpha[i,cue]  - vals[i,cue])
+      
+    }
+    
+  }
+  out = list('vals'=vals)
+}</code></pre>
+<p>show R code for a likelihood function (assuming gaussian likelihood), add documentation to the function below</p>
+<pre><code>gaussian_negloglik_fit &lt;- function(x, data, conf = list()) {
+
+  params &lt;- conf$params
+  for (i in seq_along(conf$params2estimate)) {
+    params[[conf$params2estimate[i]]] &lt;- x[i]
+  }
+
+  model_fun &lt;- load_rating_model(
+    model_name = conf$model_name,
+    model_dir = conf$model_dir %||% file.path("models", "rating_models")
+  )
+
+  model_out &lt;- model_fun(data = data, params = params, conf = conf)
+
+  # model prediction given the parameters  
+  mu &lt;- clamp01(model_out$vals)
+
+  # participant data 
+  y  &lt;- clamp01(data$rating)
+
+  # assumption about likelihood SD
+  obs_sd &lt;- conf$obs_sd %||% 0.2
+
+
+  nll &lt;- -sum(stats::dnorm(y, mean = mu, sd = obs_sd, log = TRUE))
+  nll
+}</code></pre>
+<p>/++</p>
+<p>++ Show R code for fitting in R (maybe one example with optim/nloptr) give examples of the optimization algorithms, receommend trying more than 1 /++</p>
+</section>
+<section id="section-5-comparing-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="section-5-comparing-a-model">Section 5: Comparing a model</h3>
+<p>++ models must be fitted to same data and given the same computational resources each model-parameter combination generates negative likelihood but to compare models fairly we should take their flexibility into account, i..e we need to penalize the likelihood /++</p>
+<p>++ AIC/BIC give overview of AIC and BIC logic</p>
+<p>/++</p>
+<p>++ mention cross validation /++</p>
+<p>++ show R code which fits the three models above in a data set of 20 simulated participants</p>
+</section>
+<section id="section-6-quality-controls" class="level3">
+<h3 class="anchored" data-anchor-id="section-6-quality-controls">Section 6: Quality controls</h3>
+<p>++ a) do my data allow for robust estimation? b) parameter recovery - show schematic workflow c) model recovery - show schematic workflow /++</p>
+<p>++ Refer to Wilson &amp; Colling 2019 Use their figure 1 to demonstrate workflow /++</p>
+<p>++ add 11th rule - check for fitting algorithm /++</p>
+</section>
+<section id="section-7-furtheradvanced-topics" class="level3">
+<h3 class="anchored" data-anchor-id="section-7-furtheradvanced-topics">Section 7: Further/advanced topics</h3>
+<p>++ briefly introduce hierarchical estimation /++</p>
+<p>++ highlight the option to combine process model e.g.&nbsp;RW with GLM model e.e.g fitting skin conductance responses. (i will paste my own example here) /++</p>
+<p>++ Further reading: Wilson &amp; Collins - 10 rules for modelling /++</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

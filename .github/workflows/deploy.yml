@@ -55,6 +55,7 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           [ -d index_files ] && cp -r index_files _site/ || true
+          [ -d img ] && cp -r img _site/ || true
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4

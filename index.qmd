@@ -16,6 +16,8 @@ format:
     code-overflow: wrap
     footer: "Ondrej Zika | University College Dublin | 5th May 2026"
 server: shiny
+resources:
+  - img/
 execute:
   echo: false
   warning: false
@@ -35,7 +37,7 @@ source("R/setup.R")
 ```
 
 
-# Section objectives {.section-title background-color="#2c3e50"}
+# Learning objectives {.section-title background-color="#2c3e50"}
 
 
 ---
@@ -87,6 +89,7 @@ Its **parameters** capture individual differences in that process.
 
 ![](img/input-output.png){width="100%"}
 
+
 :::
 ::::
 
@@ -114,22 +117,7 @@ it fits the data *and* does not over-engineer the mechanism.
 :::
 ::: {.column width="48%"}
 
-```{r keys-plot}
-#| fig-height: 4.5
-df_keys <- data.frame(
-  model = c("Model A\n(simple)", "Model B\n(complex)", "Model C\n(wrong)", "Model D\n(moderate)"),
-  fit   = c(0.94, 0.97, 0.31, 0.78),
-  best  = c(TRUE, FALSE, FALSE, FALSE)
-)
-ggplot(df_keys, aes(x = model, y = fit, fill = best)) +
-  geom_col(width = 0.6, colour = "white", linewidth = 1) +
-  geom_text(aes(label = sprintf("fit=%.2f", fit)), vjust = -0.4, size = 4.5) +
-  scale_fill_manual(values = c("FALSE" = "#aaaaaa", "TRUE" = COL_MODEL), guide = "none") +
-  scale_y_continuous(limits = c(0, 1.12), breaks = NULL,
-                     name = "How well the key fits →") +
-  labs(x = NULL, title = "Which model fits the data best?") +
-  theme_pres()
-```
+![](img/mc.png){width="100%"}
 
 :::
 ::::
@@ -140,8 +128,6 @@ ggplot(df_keys, aes(x = model, y = fit, fill = best)) +
 
 :::: {.columns}
 ::: {.column width="52%"}
-
-One of the most influential models in learning theory:
 
 $$\boxed{V(t+1) = V(t) + \alpha \cdot \underbrace{\bigl(R(t) - V(t)\bigr)}_{\delta(t)\ \text{prediction error}}}$$
 
@@ -166,12 +152,7 @@ $$\boxed{V(t+1) = V(t) + \alpha \cdot \underbrace{\bigl(R(t) - V(t)\bigr)}_{\del
 
 <br>
 
-Despite its simplicity, RW captures:
 
-- Acquisition & extinction
-- Blocking & overshadowing
-- Value-based decision making
-- Neural correlates in dopamine neurons
 
 :::
 ::::
@@ -182,55 +163,100 @@ Despite its simplicity, RW captures:
 
 ---
 
-## The three pillars
+## Basic building blocks
 
-```{r three-pillars}
-#| fig-height: 3.5
+```{r building-blocks}
+#| fig-height: 3.0
+#| fig-width: 7.0
+#| fig-align: center
 df_p <- data.frame(
-  x     = c(1.5, 4.5, 7.5),
-  label = c("DATA", "MODEL", "FREE PARAMETERS"),
+  x    = c(1.5,  4.5,             7.5,     4.5),
+  y    = c(0.8,  0.8,             0.8,     2.1),
+  label = c("DATA", "FREE PARAMETERS", "MODEL", "DESIGN"),
   desc  = c(
-    "What the participant did\n(trial-by-trial responses, RTs …)",
-    "Mathematical process\nthat generates behaviour",
-    "Numbers that tune the model\nto an individual (e.g. α)"
+    "Trial-by-trial responses,\nreaction times, ratings, etc.",
+    "Tune the model to an individual\n(e.g. learning rate α)",
+    "Mathematical process that\ngenerates predictions",
+    "Task structure, stimuli,\nreward schedule, timing"
   ),
-  fill  = c("#3d5a7a", "#5a7a3d", "#7a3d5a")
+  fill = c("#3d5a7a", "#5a7a3d", "#7a3d5a", "#7a6035")
 )
 ggplot(df_p) +
-  geom_tile(aes(x, y = 1, fill = I(fill)),
+  geom_tile(aes(x = x, y = y, fill = I(fill)),
             width = 2.4, height = 0.9, colour = "white", linewidth = 2) +
-  geom_text(aes(x, y = 1.15, label = label),
-            colour = "white", fontface = "bold", size = 5.5) +
-  geom_text(aes(x, y = 0.85, label = desc),
-            colour = "white", size = 3.8, lineheight = 1.25) +
-  annotate("segment", x = 2.72, xend = 3.28, y = 1, yend = 1,
+  geom_text(aes(x = x, y = y + 0.15, label = label),
+            colour = "white", fontface = "bold", size = 3) +
+  geom_text(aes(x = x, y = y - 0.15, label = desc),
+            colour = "white", size = 2, lineheight = 1) +
+  # DATA <-> FREE PARAMETERS
+  annotate("segment", x = 2.72, xend = 3.28, y = 0.8, yend = 0.8,
            arrow = arrow(ends = "both", length = unit(0.28, "cm")),
            colour = "#555555", linewidth = 1.5) +
-  annotate("segment", x = 5.72, xend = 6.28, y = 1, yend = 1,
+  # FREE PARAMETERS <-> MODEL
+  annotate("segment", x = 5.72, xend = 6.28, y = 0.8, yend = 0.8,
            arrow = arrow(ends = "both", length = unit(0.28, "cm")),
            colour = "#555555", linewidth = 1.5) +
-  xlim(0.1, 9) + ylim(0.4, 1.6) +
+  # FREE PARAMETERS <-> DESIGN (vertical)
+  annotate("segment", x = 4.5, xend = 4.5, y = 1.27, yend = 1.63,
+           arrow = arrow(ends = "both", length = unit(0.28, "cm")),
+           colour = "#555555", linewidth = 1.5) +
+  # DESIGN <-> DATA (diagonal)
+  annotate("segment", x = 3.32, xend = 2.68, y = 1.68, yend = 1.27,
+           arrow = arrow(ends = "both", length = unit(0.28, "cm")),
+           colour = "#555555", linewidth = 1.5) +
+  # DESIGN <-> MODEL (diagonal)
+  annotate("segment", x = 5.68, xend = 6.32, y = 1.68, yend = 1.27,
+           arrow = arrow(ends = "both", length = unit(0.28, "cm")),
+           colour = "#555555", linewidth = 1.5) +
+  xlim(0.1, 9) + ylim(0.2, 2.8) +
   theme_void()
 ```
 
-<br>
 
 :::: {.columns}
-::: {.column width="33%"}
-Data are what the participant **actually did**.
-At what level do you fit? Trial-by-trial vs. summary statistics?
+::: {.column width="25%"}
+**Design** — the task structure: stimuli, schedule, trial order etc.
 :::
-::: {.column width="33%"}
-A model **generates predictions** given parameters and the task structure.
+::: {.column width="25%"}
+**Data** — participant responses: e.g. choices, ratings, RTs.
 :::
-::: {.column width="33%"}
-Parameters capture **individual differences** — we estimate them from data.
+::: {.column width="25%"}
+**Parameters** — the flexible part. Estimated from data, they capture individual differences (e.g. how fast someone learns).
+:::
+::: {.column width="25%"}
+**Model** — the mathematical process that generates predictions given design + parameters.
 :::
 ::::
 
 ---
 
-## The data: a reward prediction task
+## The design: a reward prediction task
+
+```{r design-plot}
+#| fig-height: 5.5
+df_data <- data.frame(trial = trials, reward = outcomes, rating = participant_ratings)
+
+ggplot(df_data, aes(x = trial)) +
+  geom_vline(xintercept = reversal_x,
+             linetype = "dashed", colour = "#cccccc", linewidth = 0.9) +
+  geom_point(aes(y = reward), colour = COL_REWARD, size = 2.8, alpha = 0.85) +
+  annotate("text", x = c(10, 30, 50, 70), y = 100,
+           label = paste("Block", 1:4), size = 4.5, colour = "#666666", fontface = "bold") +
+  scale_x_continuous(breaks = seq(0, 80, 20)) +
+  scale_y_continuous(limits = c(0, 104), breaks = seq(0, 100, 25)) +
+  labs(x = "Trial", y = "Reward (0–100)",
+       title = "Reward prediction task",
+       subtitle = "On each trial a reward is drawn from a block-specific distribution") +
+  theme_pres()
+```
+
+::: {.caption}
+[**● True reward**]{style="color:#DC143C"} &emsp; | Dashed lines = reversals
+:::
+
+---
+
+## The data: participant predictions
 
 ```{r data-plot}
 #| fig-height: 5.5

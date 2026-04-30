@@ -397,8 +397,8 @@
 </div>
 </section>
 <section>
-<section id="section-objectives" class="title-slide slide level1 section-title center" data-background-color="#2c3e50">
-<h1>Section objectives</h1>
+<section id="learning-objectives" class="title-slide slide level1 section-title center" data-background-color="#2c3e50">
+<h1>Learning objectives</h1>
 
 </section>
 <section id="session-objectives" class="slide level2">
@@ -457,11 +457,7 @@
 <p>Think of models as <strong>keys</strong> and data as a <strong>lock</strong>. The best key is the one that opens the lock most efficiently — it fits the data <em>and</em> does not over-engineer the mechanism.</p>
 </div>
 </div><div class="column" style="width:48%;">
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/keys-plot-1.png" width="960"></p>
-</div>
-</div>
+<p><img data-src="img/mc.png" style="width:100.0%"></p>
 </div>
 </div>
 </section>
@@ -469,7 +465,6 @@
 <h2>A familiar example: Rescorla–Wagner</h2>
 <div class="columns">
 <div class="column" style="width:52%;">
-<p>One of the most influential models in learning theory:</p>
 <p><span class="math display">\[\boxed{V(t+1) = V(t) + \alpha \cdot \underbrace{\bigl(R(t) - V(t)\bigr)}_{\delta(t)\ \text{prediction error}}}\]</span></p>
 <p><br></p>
 <table>
@@ -507,13 +502,6 @@
 </ul>
 </div>
 <p><br></p>
-<p>Despite its simplicity, RW captures:</p>
-<ul>
-<li>Acquisition &amp; extinction</li>
-<li>Blocking &amp; overshadowing</li>
-<li>Value-based decision making</li>
-<li>Neural correlates in dopamine neurons</li>
-</ul>
 </div>
 </div>
 </section>
@@ -525,22 +513,30 @@
 <h1>Section 2: Key components</h1>
 
 </section>
-<section id="the-three-pillars" class="slide level2">
-<h2>The three pillars</h2>
+<section id="basic-building-blocks" class="slide level2">
+<h2>Basic building blocks</h2>
 
-<img data-src="index_files/figure-revealjs/three-pillars-1.png" width="960" class="r-stretch"><p><br></p>
-<div class="columns">
-<div class="column" style="width:33%;">
-<p>Data are what the participant <strong>actually did</strong>. At what level do you fit? Trial-by-trial vs.&nbsp;summary statistics?</p>
-</div><div class="column" style="width:33%;">
-<p>A model <strong>generates predictions</strong> given parameters and the task structure.</p>
-</div><div class="column" style="width:33%;">
-<p>Parameters capture <strong>individual differences</strong> — we estimate them from data.</p>
+<img data-src="index_files/figure-revealjs/building-blocks-1.png" width="672" class="r-stretch quarto-figure-center"><div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Design</strong> — the task structure: stimuli, schedule, trial order etc.</p>
+</div><div class="column" style="width:25%;">
+<p><strong>Data</strong> — participant responses: e.g.&nbsp;choices, ratings, RTs.</p>
+</div><div class="column" style="width:25%;">
+<p><strong>Parameters</strong> — the flexible part. Estimated from data, they capture individual differences (e.g.&nbsp;how fast someone learns).</p>
+</div><div class="column" style="width:25%;">
+<p><strong>Model</strong> — the mathematical process that generates predictions given design + parameters.</p>
 </div>
 </div>
 </section>
-<section id="the-data-a-reward-prediction-task" class="slide level2">
-<h2>The data: a reward prediction task</h2>
+<section id="the-design-a-reward-prediction-task" class="slide level2">
+<h2>The design: a reward prediction task</h2>
+
+<img data-src="index_files/figure-revealjs/design-plot-1.png" width="960" class="r-stretch"><div class="caption">
+<p><span style="color:#DC143C"><strong>● True reward</strong></span>   | Dashed lines = reversals</p>
+</div>
+</section>
+<section id="the-data-participant-predictions" class="slide level2">
+<h2>The data: participant predictions</h2>
 
 <img data-src="index_files/figure-revealjs/data-plot-1.png" width="960" class="r-stretch"><div class="caption">
 <p><span style="color:#DC143C"><strong>● True reward</strong></span>   <span style="color:#001F5B"><strong>— Participant prediction</strong></span>   | Dashed lines = reversals</p>

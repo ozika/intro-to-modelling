@@ -1,0 +1,133 @@
+/*-- scss:defaults --*/
+
+$crimson:   #DC143C;
+$navy:      #001F5B;
+$turquoise: #00B4B4;
+$font-size-root: 28px;
+
+/*-- scss:rules --*/
+
+/* ── global font-size reduction (~30% smaller than RevealJS default 40px) ── */
+.reveal {
+  font-size: 28px;
+}
+
+/* --- slide chrome -------------------------------------------------------- */
+.reveal .slide-number {
+  font-size: 0.6em;
+  color: #666;
+}
+
+.reveal .footer {
+  font-size: 0.5em;
+  color: #888;
+}
+
+/* --- section header slides ----------------------------------------------- */
+.section-title {
+  background: linear-gradient(135deg, #2c3e50 0%, #3d5a7a 100%);
+  color: white !important;
+}
+
+.section-title h1,
+.section-title h2 {
+  color: white !important;
+}
+
+/* --- colour callouts for consistent legend -------------------------------- */
+.reward-label {
+  color: $crimson;
+  font-weight: bold;
+}
+
+.participant-label {
+  color: $navy;
+  font-weight: bold;
+}
+
+.model-label {
+  color: $turquoise;
+  font-weight: bold;
+}
+
+/* --- key concept boxes ----------------------------------------------------- */
+.key-concept {
+  background: #f0f4ff;
+  border-left: 5px solid #3d5a7a;
+  padding: 0.5em 1em;
+  border-radius: 0 6px 6px 0;
+  margin: 0.5em 0;
+}
+
+.formula-box {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.8em 1.2em;
+  margin: 0.4em 0;
+}
+
+/* --- code blocks ---------------------------------------------------------- */
+.reveal pre code {
+  font-size: 0.72em;
+  line-height: 1.5;
+}
+
+/* --- two-column helper ---------------------------------------------------- */
+.col-left  { width: 48%; float: left;  padding-right: 1%; }
+.col-right { width: 48%; float: right; padding-left:  1%; }
+.clearfix::after { content: ""; display: table; clear: both; }
+
+/* --- shiny app containers ------------------------------------------------- */
+.shiny-frame {
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+}
+
+/* --- objective list ------------------------------------------------------- */
+.objective-list {
+  font-size: 1.05em;
+  line-height: 2;
+}
+
+.objective-list li {
+  padding: 0.1em 0;
+}
+
+/* --- splash slide --------------------------------------------------------- */
+.splash h1 {
+  font-size: 1.8em;
+  color: #2c3e50;
+  margin-bottom: 0.4em;
+}
+
+.splash .subtitle {
+  font-size: 1.1em;
+  color: #555;
+  margin-top: 0.2em;
+}
+
+/* --- small caption text --------------------------------------------------- */
+.caption {
+  font-size: 0.6em;
+  color: #888;
+  font-style: italic;
+}
+
+/* --- highlight boxes ------------------------------------------------------ */
+.highlight-box {
+  background: #fffbe6;
+  border: 1px solid #f0c040;
+  border-radius: 6px;
+  padding: 0.6em 1em;
+  margin: 0.4em 0;
+}
+
+.warning-box {
+  background: #fff0f0;
+  border: 1px solid $crimson;
+  border-radius: 6px;
+  padding: 0.6em 1em;
+  margin: 0.4em 0;
+}

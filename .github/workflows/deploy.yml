@@ -31,20 +31,18 @@ jobs:
           r-version: '4.3'
           use-public-rspm: true
 
-      - name: Cache R packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ hashFiles('.github/workflows/deploy.yml') }}
-          restore-keys: ${{ runner.os }}-r-
-
       - name: Install R packages
-        run: |
-          Rscript -e "
-            pkgs <- c('rmarkdown','shiny','ggplot2','dplyr','patchwork','scales','knitr')
-            new  <- pkgs[!pkgs %in% installed.packages()[,'Package']]
-            if (length(new)) install.packages(new, repos = 'https://cloud.r-project.org')
-          "
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          extra-packages: |
+            any::rmarkdown
+            any::shiny
+            any::ggplot2
+            any::dplyr
+            any::patchwork
+            any::scales
+            any::knitr
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2

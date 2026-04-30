@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /data/drive/UCD/intro-to-modelling status --short)",
+      "Bash(git -C /data/drive/UCD/intro-to-modelling log --oneline -5)",
+      "Bash(git -C /data/drive/UCD/intro-to-modelling diff HEAD .github/workflows/deploy.yml)"
+    ]
+  }
+}
